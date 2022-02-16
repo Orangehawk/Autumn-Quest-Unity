@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.IO;
 
 public class Generator
 {
@@ -82,34 +81,23 @@ public class Manager : MonoBehaviour
 	public GameObject dialogBox;
 
 	//Storage variables
-	public uint numberOfClothes; //Stores how many clothes the user has set to pick from
-	public uint settingNumOfClothes; //Stores the setting for the default number of clothes
-	public string settingColours; //Stores the setting for the colour list
-	public bool settingSkipSpin; //Store the setting for whether to skip the spin
+	private uint numberOfClothes; //Stores how many clothes the user has set to pick from
+	private uint settingNumOfClothes; //Stores the setting for the default number of clothes
+	private string settingColours; //Stores the setting for the colour list
+	private bool settingSkipSpin; //Store the setting for whether to skip the spin
 
 	//Defaults for resetting
-	private uint defaultNumOfClothes = 10;
-	private string defaultColours = "Red,Yellow,Blue,Orange,Green,Violet,Pink,White,Black,Gray";
+	uint defaultNumOfClothes = 10;
+	string defaultColours = "Red,Yellow,Blue,Orange,Green,Violet,Pink,White,Black,Gray";
 
 	//Generator
-	private Generator gen;
+	Generator gen;
 
 	//Carbie Spinner
 	public GameObject wheel;
 	public ColourChanger mainCarbie;
-	private bool spinning = false;
-	private float currentSpinSpeed = 0;
 	[SerializeField]
-	private float maxSpinSpeed = 70f;
-	[SerializeField]
-	private float speedIncrement = 25f;
-	[SerializeField]
-	private float spinTime = 5.138f;
-	//14.395 = 2 spins
-
-	//Debug
-	[SerializeField]
-	private Text debugText;
+	float spinTime = 5f;
 
 	// Start is called before the first frame update
 	void Start()
@@ -122,41 +110,7 @@ public class Manager : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (spinning)
-		{
-			if (currentSpinSpeed < maxSpinSpeed)
-			{
-				currentSpinSpeed += speedIncrement * Time.deltaTime;
 
-				if (currentSpinSpeed > maxSpinSpeed)
-					currentSpinSpeed = maxSpinSpeed;
-			}
-		}
-		else
-		{
-			if (currentSpinSpeed > 0)
-			{
-				currentSpinSpeed -= speedIncrement * Time.deltaTime;
-
-				if (currentSpinSpeed < 0)
-					currentSpinSpeed = 0;
-			}
-		}
-
-		if (currentSpinSpeed > 0)
-		{
-			//Debug.Log($"Powered: {spinning}\nSpin speed: {currentSpinSpeed}");
-			wheel.transform.Rotate(0, currentSpinSpeed * Time.deltaTime, 0);
-		}
-		else
-		{
-			wheel.transform.Rotate(new Vector3(0, 1, 0), -wheel.transform.rotation.eulerAngles.y);
-		}
-	}
-
-	public void ResetWheel()
-	{
-		wheel.transform.Rotate(new Vector3(0, 1, 0), -wheel.transform.rotation.eulerAngles.y);
 	}
 
 	public void Quit()
@@ -170,6 +124,7 @@ public class Manager : MonoBehaviour
 		inpNumClothes.text = settingNumOfClothes.ToString();
 	}
 
+	//Loads all the setting values into the setting UI elements
 	public void InitSettings()
 	{
 		LoadSettings();
@@ -178,6 +133,7 @@ public class Manager : MonoBehaviour
 		inpSettingSkipSpin.isOn = settingSkipSpin;
 	}
 
+	//Reloads the values the 
 	public void ReloadGenerator()
 	{
 		inpNumClothes.text = PlayerPrefs.GetInt("NumClothes").ToString();
@@ -233,15 +189,16 @@ public class Manager : MonoBehaviour
 		txtNumber.text = "Generating...";
 		txtColour.text = "Generating...";
 		txtColourBackground.color = Color.white;
-		txtColour.color = new Color(0.1960784f, 0.1960784f, 0.1960784f);
-		inpGenerate.enabled = false;
+		txtColour.color = new Color(0.1960784f, 0.1960784f, 0.1960784f); //Default colour used for text
+		inpGenerate.enabled = false; //Disable the generate button while the wheel spins
+
 		yield return new WaitForSeconds(spinTime);
-		//yield return new WaitForSeconds(spinTime + spinTime / 2f);
-		txtNumber.text = $"#{gen.GetRandomNumber()}";
+
+		txtNumber.text = $"#{gen.GetRandomNumber()}"; //Get a random number for the clothes #
 		txtColour.text = colourName;
 		txtColourBackground.color = new Color(colour.R / 255f, colour.G / 255f, colour.B / 255f);
 		txtColour.color = ContrastColor(colour);
-		inpGenerate.enabled = true;
+		inpGenerate.enabled = true; //Enable the generate button again
 	}
 
 	IEnumerator Coroutine_SpinWheel(float duration)
@@ -257,13 +214,6 @@ public class Manager : MonoBehaviour
 			yield return null;
 		}
 	}
-
-	//IEnumerator Coroutine_SpinWheel(float duration)
-	//{
-	//	spinning = true;
-	//	yield return new WaitForSeconds(spinTime);
-	//	spinning = false;
-	//}
 
 	IEnumerator Coroutine_ColourCarbie(System.Drawing.Color colour)
 	{
@@ -319,7 +269,7 @@ public class Manager : MonoBehaviour
 	{
 		dialogBox.SetActive(true);
 		settingsPanel.SetActive(false);
-		inpSettingColours.text = "Red,Yellow,Blue,Orange,Green,Violet,Pink,White,Black,Gray";
+		inpSettingColours.text = defaultColours;
 	}
 
 	public void DialogueAnswer(bool answer)
@@ -328,7 +278,7 @@ public class Manager : MonoBehaviour
 		{
 			dialogBox.SetActive(false);
 			settingsPanel.SetActive(true);
-			inpSettingColours.text = "Red,Yellow,Blue,Orange,Green,Violet,Pink,White,Black,Gray";
+			inpSettingColours.text = defaultColours;
 		}
 		else
 		{
@@ -337,64 +287,3 @@ public class Manager : MonoBehaviour
 		}
 	}
 }
-
-
-
-/*public class ColourFinder
-{
-	public struct RGB
-	{
-		public RGB(int r, int g, int b)
-		{
-			red = r;
-			green = g;
-			blue = b;
-		}
-
-		public int red;
-		public int green;
-		public int blue;
-	}
-
-	static Dictionary<string, RGB> colors;
-	
-	public static void LoadColorsFromResources(string path)
-	{
-		colors = new Dictionary<string, RGB>();
-
-		TextAsset file = Resources.Load<TextAsset>("Colours");
-
-		string[] list = file.text.Split('\n');
-
-		foreach (string line in list)
-		{
-			string[] items = line.Split(',');
-			colors.Add(items[0].ToLower(), new RGB(int.Parse(items[1]), int.Parse(items[2]), int.Parse(items[3])));
-		}
-	}
-
-	public static RGB RGBFromName(string name)
-	{
-		if(colors.ContainsKey(name.ToLower()))
-		{
-			return colors[name.ToLower()];
-		}
-		else
-		{
-			return new RGB(255, 255, 255);
-		}
-	}
-
-	public static UnityEngine.Color ColorFromName(string name)
-	{
-		if (colors.ContainsKey(name.ToLower()))
-		{
-			RGB rgb = colors[name.ToLower()];
-			return new UnityEngine.Color(rgb.red, rgb.green, rgb.blue);
-		}
-		else
-		{
-			return new UnityEngine.Color(255, 255, 255);
-		}
-	}
-}*/

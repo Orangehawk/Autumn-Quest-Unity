@@ -7,18 +7,6 @@ public class ColourChanger : MonoBehaviour
     [SerializeField]
     MeshRenderer meshRenderer;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ChangeColor(float r, float g, float b)
 	{
         meshRenderer.material.color = new Color(r / 255f, g / 255f, b / 255f);
