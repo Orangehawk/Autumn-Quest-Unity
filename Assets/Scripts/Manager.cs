@@ -220,7 +220,7 @@ public class Manager : MonoBehaviour
 			coroutine = Coroutine_Generate(colourName, colour);
 			StartCoroutine(coroutine);
 
-			coroutine = Coroutine_SpinWheel();
+			coroutine = Coroutine_SpinWheel(spinTime);
 			StartCoroutine(coroutine);
 
 			coroutine = Coroutine_ColourCarbie(colour);
@@ -235,7 +235,8 @@ public class Manager : MonoBehaviour
 		txtColourBackground.color = Color.white;
 		txtColour.color = new Color(0.1960784f, 0.1960784f, 0.1960784f);
 		inpGenerate.enabled = false;
-		yield return new WaitForSeconds(spinTime + spinTime / 2f);
+		yield return new WaitForSeconds(spinTime);
+		//yield return new WaitForSeconds(spinTime + spinTime / 2f);
 		txtNumber.text = $"#{gen.GetRandomNumber()}";
 		txtColour.text = colourName;
 		txtColourBackground.color = new Color(colour.R / 255f, colour.G / 255f, colour.B / 255f);
@@ -243,16 +244,30 @@ public class Manager : MonoBehaviour
 		inpGenerate.enabled = true;
 	}
 
-	IEnumerator Coroutine_SpinWheel()
+	IEnumerator Coroutine_SpinWheel(float duration)
 	{
-		spinning = true;
-		yield return new WaitForSeconds(spinTime);
-		spinning = false;
+		float startRotation = transform.eulerAngles.y;
+		float endRotation = startRotation + 360.0f;
+		float t = 0.0f;
+		while (t < duration)
+		{
+			t += Time.deltaTime;
+			float yRotation = Mathf.SmoothStep(startRotation, endRotation, t / duration) % 360.0f;
+			wheel.transform.eulerAngles = new Vector3(wheel.transform.eulerAngles.x, yRotation, wheel.transform.eulerAngles.z);
+			yield return null;
+		}
 	}
+
+	//IEnumerator Coroutine_SpinWheel(float duration)
+	//{
+	//	spinning = true;
+	//	yield return new WaitForSeconds(spinTime);
+	//	spinning = false;
+	//}
 
 	IEnumerator Coroutine_ColourCarbie(System.Drawing.Color colour)
 	{
-		yield return new WaitForSeconds(spinTime);
+		yield return new WaitForSeconds(spinTime / 2);
 		mainCarbie.ChangeColor(colour);
 	}
 
