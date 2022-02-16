@@ -60,16 +60,16 @@ public class Generator
 	}
 }
 
-
-
 public class Manager : MonoBehaviour
 {
-	//Field to set how many clothes to pick from
+	//Main UI Elements
 	public InputField inpNumClothes;
+	public Button inpGenerate;
 
 	//Settings fields
 	public InputField inpSettingNumClothes;
 	public InputField inpSettingColours;
+	public Toggle inpSettingSkipSpin;
 
 	//Text to display generated result
 	public Text txtColour;
@@ -85,6 +85,7 @@ public class Manager : MonoBehaviour
 	public uint numberOfClothes; //Stores how many clothes the user has set to pick from
 	public uint settingNumOfClothes; //Stores the setting for the default number of clothes
 	public string settingColours; //Stores the setting for the colour list
+	public bool settingSkipSpin; //Store the setting for whether to skip the spin
 
 	//Defaults for resetting
 	private uint defaultNumOfClothes = 10;
@@ -99,11 +100,11 @@ public class Manager : MonoBehaviour
 	private bool spinning = false;
 	private float currentSpinSpeed = 0;
 	[SerializeField]
-	private float maxSpinSpeed = 50f;
+	private float maxSpinSpeed = 70f;
 	[SerializeField]
-	private float speedIncrement = 5f;
+	private float speedIncrement = 25f;
 	[SerializeField]
-	private float spinTime = 5f;
+	private float spinTime = 5.138f;
 	//14.395 = 2 spins
 
 	//Debug
@@ -174,6 +175,7 @@ public class Manager : MonoBehaviour
 		LoadSettings();
 		inpSettingNumClothes.text = settingNumOfClothes.ToString();
 		inpSettingColours.text = settingColours;
+		inpSettingSkipSpin.isOn = settingSkipSpin;
 	}
 
 	public void ReloadGenerator()
@@ -199,20 +201,31 @@ public class Manager : MonoBehaviour
 
 	public void Generate()
 	{
-		IEnumerator coroutine;
-
 		gen.SetMaxClothes((int)numberOfClothes); //Update the maxclothes value in the generator from our numeric counter
 		string colourName = gen.GetRandomColour(); //Get a random colour
 		System.Drawing.Color colour = System.Drawing.Color.FromName(colourName);
 
-		coroutine = Coroutine_Generate(colourName, colour);
-		StartCoroutine(coroutine);
+		if (settingSkipSpin) //Setting for skip
+		{
+			txtNumber.text = $"#{gen.GetRandomNumber()}";
+			txtColour.text = colourName;
+			txtColourBackground.color = new Color(colour.R / 255f, colour.G / 255f, colour.B / 255f);
+			txtColour.color = ContrastColor(colour);
+			mainCarbie.ChangeColor(colour);
+		}
+		else
+		{
+			IEnumerator coroutine;
 
-		coroutine = Coroutine_SpinWheel();
-		StartCoroutine(coroutine);
+			coroutine = Coroutine_Generate(colourName, colour);
+			StartCoroutine(coroutine);
 
-		coroutine = Coroutine_ColourCarbie(colour);
-		StartCoroutine(coroutine);
+			coroutine = Coroutine_SpinWheel();
+			StartCoroutine(coroutine);
+
+			coroutine = Coroutine_ColourCarbie(colour);
+			StartCoroutine(coroutine);
+		}
 	}
 
 	IEnumerator Coroutine_Generate(string colourName, System.Drawing.Color colour)
@@ -221,11 +234,13 @@ public class Manager : MonoBehaviour
 		txtColour.text = "Generating...";
 		txtColourBackground.color = Color.white;
 		txtColour.color = new Color(0.1960784f, 0.1960784f, 0.1960784f);
+		inpGenerate.enabled = false;
 		yield return new WaitForSeconds(spinTime + spinTime / 2f);
 		txtNumber.text = $"#{gen.GetRandomNumber()}";
 		txtColour.text = colourName;
 		txtColourBackground.color = new Color(colour.R / 255f, colour.G / 255f, colour.B / 255f);
 		txtColour.color = ContrastColor(colour);
+		inpGenerate.enabled = true;
 	}
 
 	IEnumerator Coroutine_SpinWheel()
@@ -252,6 +267,11 @@ public class Manager : MonoBehaviour
 			settingColours = PlayerPrefs.GetString("Colours");
 		else
 			settingColours = defaultColours;
+
+		if (PlayerPrefs.HasKey("SkipSpin"))
+			settingSkipSpin = PlayerPrefs.GetString("SkipSpin").Contains("True");
+		else
+			settingSkipSpin = false;
 	}
 
 	public void SaveSettings()
@@ -259,6 +279,8 @@ public class Manager : MonoBehaviour
 		PlayerPrefs.SetInt("NumClothes", int.Parse(inpSettingNumClothes.text));
 		inpSettingColours.text.Replace(" ", "");
 		PlayerPrefs.SetString("Colours", inpSettingColours.text);
+		PlayerPrefs.SetString("SkipSpin", inpSettingSkipSpin.isOn.ToString());
+		settingSkipSpin = inpSettingSkipSpin.isOn;
 		PlayerPrefs.Save();
 		CloseSettings();
 		ReloadGenerator();
