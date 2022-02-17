@@ -137,7 +137,7 @@ public class Manager : MonoBehaviour
 		inpSettingSkipSpin.isOn = settingSkipSpin;
 	}
 
-	//Reloads the values the 
+	//Reloads the values the generator uses with new values
 	public void ReloadGenerator()
 	{
 		inpNumClothes.text = PlayerPrefs.GetInt("NumClothes").ToString();
