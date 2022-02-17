@@ -14,17 +14,20 @@ public class Generator
 		maxClothes = 0;
 	}
 
+	//Loads the colours in the parameter into the generator
 	public void LoadColours(string[] colourList)
 	{
 		colours.Clear();
 		colours.AddRange(colourList);
 	}
 
+	//Loads the colours in the parameter into the generator
 	public void LoadColours(List<string> colourList)
 	{
 		colours = colourList;
 	}
 
+	//Sets the maximum number 
 	public void SetMaxClothes(int numOfClothes)
 	{
 		maxClothes = numOfClothes;
@@ -34,7 +37,7 @@ public class Generator
 	{
 		if (colours.Count > 1)
 		{
-			return colours[Random.Range(0, colours.Count - 1)];
+			return colours[Random.Range(0, colours.Count)];
 		}
 		else if (colours.Count == 1)
 		{
@@ -50,7 +53,7 @@ public class Generator
 	{
 		if (maxClothes > 0)
 		{
-			return Random.Range(1, maxClothes);
+			return Random.Range(1, maxClothes + 1);
 		}
 		else
 		{
@@ -118,6 +121,7 @@ public class Manager : MonoBehaviour
 		Application.Quit();
 	}
 
+	//Load the settings and then init the number of clothes field
 	void InitMainPanel()
 	{
 		LoadSettings();
@@ -140,10 +144,11 @@ public class Manager : MonoBehaviour
 		gen.LoadColours(PlayerPrefs.GetString("Colours").Split(','));
 	}
 
-	Color ContrastColor(System.Drawing.Color color)
+	//Select black or white text based on the luminance of the given colour
+	Color ContrastColor(System.Drawing.Color colour)
 	{
-		//Counting the perceptive luminance - human eye favors green color
-		double luminance = (color.R * 0.299f + color.G * 0.587f + color.B * 0.114f) / 256f;
+		//Counting the perceptive luminance - human eye favors green colour
+		double luminance = (colour.R * 0.299f + colour.G * 0.587f + colour.B * 0.114f) / 256f;
 
 		if (luminance > 0.55)
 		{
@@ -157,6 +162,7 @@ public class Manager : MonoBehaviour
 
 	public void Generate()
 	{
+		numberOfClothes = (uint)int.Parse(inpNumClothes.text);
 		gen.SetMaxClothes((int)numberOfClothes); //Update the maxclothes value in the generator from our numeric counter
 		string colourName = gen.GetRandomColour(); //Get a random colour
 		System.Drawing.Color colour = System.Drawing.Color.FromName(colourName);
@@ -184,8 +190,10 @@ public class Manager : MonoBehaviour
 		}
 	}
 
+	//Set the text/colours to a default, wait for spin time, and then generate a number and use the colour
 	IEnumerator Coroutine_Generate(string colourName, System.Drawing.Color colour)
 	{
+		//Set temporary text and colours while the wheel spins
 		txtNumber.text = "Generating...";
 		txtColour.text = "Generating...";
 		txtColourBackground.color = Color.white;
@@ -194,6 +202,7 @@ public class Manager : MonoBehaviour
 
 		yield return new WaitForSeconds(spinTime);
 
+		//Set new text and colours once the wheel stops
 		txtNumber.text = $"#{gen.GetRandomNumber()}"; //Get a random number for the clothes #
 		txtColour.text = colourName;
 		txtColourBackground.color = new Color(colour.R / 255f, colour.G / 255f, colour.B / 255f);
@@ -201,6 +210,7 @@ public class Manager : MonoBehaviour
 		inpGenerate.enabled = true; //Enable the generate button again
 	}
 
+	//Spin the carbie wheel 360 degrees over the specified duration
 	IEnumerator Coroutine_SpinWheel(float duration)
 	{
 		float startRotation = transform.eulerAngles.y;
@@ -215,12 +225,14 @@ public class Manager : MonoBehaviour
 		}
 	}
 
+	//Colour the main carbie halfway through the wheel spin
 	IEnumerator Coroutine_ColourCarbie(System.Drawing.Color colour)
 	{
-		yield return new WaitForSeconds(spinTime / 2);
+		yield return new WaitForSeconds(spinTime / 2); //Change the colour of the carbie when it's halfway through the wheel spin
 		mainCarbie.ChangeColor(colour);
 	}
 
+	//Load the settings stored in PlayerPrefs, otherwise set them to default if the keys don't exist
 	public void LoadSettings()
 	{
 		if (PlayerPrefs.HasKey("NumClothes"))
@@ -239,10 +251,11 @@ public class Manager : MonoBehaviour
 			settingSkipSpin = false;
 	}
 
+	//Store all of the settings from the settings UI inputs into PlayerPrefs
 	public void SaveSettings()
 	{
 		PlayerPrefs.SetInt("NumClothes", int.Parse(inpSettingNumClothes.text));
-		inpSettingColours.text.Replace(" ", "");
+		inpSettingColours.text.Replace(" ", ""); //Remove any extra space on either side of the colour
 		PlayerPrefs.SetString("Colours", inpSettingColours.text);
 		PlayerPrefs.SetString("SkipSpin", inpSettingSkipSpin.isOn.ToString());
 		settingSkipSpin = inpSettingSkipSpin.isOn;
@@ -251,6 +264,7 @@ public class Manager : MonoBehaviour
 		ReloadGenerator();
 	}
 
+	//Show the settings panel and hide the main panel
 	public void OpenSettings()
 	{
 		mainPanel.SetActive(false);
@@ -258,6 +272,7 @@ public class Manager : MonoBehaviour
 		InitSettings();
 	}
 
+	//Hide the settings panel and dialogue box, and show the main panel
 	public void CloseSettings()
 	{
 		mainPanel.SetActive(true);
@@ -265,13 +280,14 @@ public class Manager : MonoBehaviour
 		dialogBox.SetActive(false);
 	}
 
+	//Show the confirmation box
 	public void ResetColours()
 	{
 		dialogBox.SetActive(true);
 		settingsPanel.SetActive(false);
-		inpSettingColours.text = defaultColours;
 	}
 
+	//Show the dialogue box
 	public void DialogueAnswer(bool answer)
 	{
 		if (answer == true)
