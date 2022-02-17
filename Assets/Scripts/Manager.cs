@@ -5,26 +5,26 @@ using UnityEngine.UI;
 
 public class Generator
 {
-	List<string> colours;
+	List<string> colourList;
 	int maxClothes;
 
 	public Generator()
 	{
-		colours = new List<string>();
+		colourList = new List<string>();
 		maxClothes = 0;
 	}
 
 	//Loads the colours in the parameter into the generator
 	public void LoadColours(string[] colourList)
 	{
-		colours.Clear();
-		colours.AddRange(colourList);
+		this.colourList.Clear();
+		this.colourList.AddRange(colourList);
 	}
 
 	//Loads the colours in the parameter into the generator
 	public void LoadColours(List<string> colourList)
 	{
-		colours = colourList;
+		this.colourList = colourList;
 	}
 
 	//Sets the maximum number 
@@ -35,13 +35,13 @@ public class Generator
 
 	public string GetRandomColour()
 	{
-		if (colours.Count > 1)
+		if (colourList.Count > 1)
 		{
-			return colours[Random.Range(0, colours.Count)];
+			return colourList[Random.Range(0, colourList.Count)];
 		}
-		else if (colours.Count == 1)
+		else if (colourList.Count == 1)
 		{
-			return colours[0];
+			return colourList[0];
 		}
 		else
 		{
@@ -70,7 +70,7 @@ public class Manager : MonoBehaviour
 
 	//Settings fields
 	public InputField inpSettingNumClothes;
-	public InputField inpSettingColours;
+	public InputField inpSettingColourList;
 	public Toggle inpSettingSkipSpin;
 
 	//Text to display generated result
@@ -84,17 +84,17 @@ public class Manager : MonoBehaviour
 	public GameObject dialogBox;
 
 	//Storage variables
-	private uint numberOfClothes; //Stores how many clothes the user has set to pick from
-	private uint settingNumOfClothes; //Stores the setting for the default number of clothes
-	private string settingColours; //Stores the setting for the colour list
-	private bool settingSkipSpin; //Store the setting for whether to skip the spin
+	private uint activeNumberOfClothes; //Stores how many clothes the user has set to pick from
+	private uint initialNumOfClothes; //Stores the setting for the default number of clothes
+	private string activeColourList; //Stores the setting for the colour list
+	private bool skipSpin; //Store the setting for whether to skip the spin
 
 	//Defaults for resetting
 	uint defaultNumOfClothes = 10;
-	string defaultColours = "Red,Yellow,Blue,Orange,Green,Violet,Pink,White,Black,Gray";
+	string defaultColourList = "Red,Yellow,Aqua,Orange,Green,Violet,Pink,White,Black,Gray";
 
 	//Generator
-	Generator gen;
+	Generator generator;
 
 	//Carbie Spinner
 	public GameObject wheel;
@@ -106,8 +106,8 @@ public class Manager : MonoBehaviour
 	void Start()
 	{
 		InitMainPanel();
-		gen = new Generator();
-		gen.LoadColours(settingColours.Split(','));
+		generator = new Generator();
+		generator.LoadColours(activeColourList.Split(','));
 	}
 
 	// Update is called once per frame
@@ -125,23 +125,23 @@ public class Manager : MonoBehaviour
 	void InitMainPanel()
 	{
 		LoadSettings();
-		inpNumClothes.text = settingNumOfClothes.ToString();
+		inpNumClothes.text = initialNumOfClothes.ToString();
 	}
 
 	//Loads all the setting values into the setting UI elements
 	public void InitSettings()
 	{
 		LoadSettings();
-		inpSettingNumClothes.text = settingNumOfClothes.ToString();
-		inpSettingColours.text = settingColours;
-		inpSettingSkipSpin.isOn = settingSkipSpin;
+		inpSettingNumClothes.text = initialNumOfClothes.ToString();
+		inpSettingColourList.text = activeColourList;
+		inpSettingSkipSpin.isOn = skipSpin;
 	}
 
 	//Reloads the values the generator uses with new values
 	public void ReloadGenerator()
 	{
 		inpNumClothes.text = PlayerPrefs.GetInt("NumClothes").ToString();
-		gen.LoadColours(PlayerPrefs.GetString("Colours").Split(','));
+		generator.LoadColours(PlayerPrefs.GetString("Colours").Split(','));
 	}
 
 	//Select black or white text based on the luminance of the given colour
@@ -162,14 +162,14 @@ public class Manager : MonoBehaviour
 
 	public void Generate()
 	{
-		numberOfClothes = (uint)int.Parse(inpNumClothes.text);
-		gen.SetMaxClothes((int)numberOfClothes); //Update the maxclothes value in the generator from our numeric counter
-		string colourName = gen.GetRandomColour(); //Get a random colour
+		activeNumberOfClothes = (uint)int.Parse(inpNumClothes.text);
+		generator.SetMaxClothes((int)activeNumberOfClothes); //Update the maxclothes value in the generator from our numeric counter
+		string colourName = generator.GetRandomColour(); //Get a random colour
 		System.Drawing.Color colour = System.Drawing.Color.FromName(colourName);
 
-		if (settingSkipSpin) //Setting for skip
+		if (skipSpin) //Setting for skip
 		{
-			txtNumber.text = $"#{gen.GetRandomNumber()}";
+			txtNumber.text = $"#{generator.GetRandomNumber()}";
 			txtColour.text = colourName;
 			txtColourBackground.color = new Color(colour.R / 255f, colour.G / 255f, colour.B / 255f);
 			txtColour.color = ContrastColor(colour);
@@ -203,7 +203,7 @@ public class Manager : MonoBehaviour
 		yield return new WaitForSeconds(spinTime);
 
 		//Set new text and colours once the wheel stops
-		txtNumber.text = $"#{gen.GetRandomNumber()}"; //Get a random number for the clothes #
+		txtNumber.text = $"#{generator.GetRandomNumber()}"; //Get a random number for the clothes #
 		txtColour.text = colourName;
 		txtColourBackground.color = new Color(colour.R / 255f, colour.G / 255f, colour.B / 255f);
 		txtColour.color = ContrastColor(colour);
@@ -236,29 +236,29 @@ public class Manager : MonoBehaviour
 	public void LoadSettings()
 	{
 		if (PlayerPrefs.HasKey("NumClothes"))
-			settingNumOfClothes = (uint)PlayerPrefs.GetInt("NumClothes");
+			initialNumOfClothes = (uint)PlayerPrefs.GetInt("NumClothes");
 		else
-			settingNumOfClothes = defaultNumOfClothes;
+			initialNumOfClothes = defaultNumOfClothes;
 
 		if (PlayerPrefs.HasKey("Colours"))
-			settingColours = PlayerPrefs.GetString("Colours");
+			activeColourList = PlayerPrefs.GetString("Colours");
 		else
-			settingColours = defaultColours;
+			activeColourList = defaultColourList;
 
 		if (PlayerPrefs.HasKey("SkipSpin"))
-			settingSkipSpin = PlayerPrefs.GetString("SkipSpin").Contains("True");
+			skipSpin = PlayerPrefs.GetString("SkipSpin").Contains("True");
 		else
-			settingSkipSpin = false;
+			skipSpin = false;
 	}
 
 	//Store all of the settings from the settings UI inputs into PlayerPrefs
 	public void SaveSettings()
 	{
 		PlayerPrefs.SetInt("NumClothes", int.Parse(inpSettingNumClothes.text));
-		inpSettingColours.text.Replace(" ", ""); //Remove any extra space on either side of the colour
-		PlayerPrefs.SetString("Colours", inpSettingColours.text);
+		inpSettingColourList.text.Replace(" ", ""); //Remove any extra space on either side of the colour
+		PlayerPrefs.SetString("Colours", inpSettingColourList.text);
 		PlayerPrefs.SetString("SkipSpin", inpSettingSkipSpin.isOn.ToString());
-		settingSkipSpin = inpSettingSkipSpin.isOn;
+		skipSpin = inpSettingSkipSpin.isOn;
 		PlayerPrefs.Save();
 		CloseSettings();
 		ReloadGenerator();
@@ -294,7 +294,7 @@ public class Manager : MonoBehaviour
 		{
 			dialogBox.SetActive(false);
 			settingsPanel.SetActive(true);
-			inpSettingColours.text = defaultColours;
+			inpSettingColourList.text = defaultColourList;
 		}
 		else
 		{

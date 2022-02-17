@@ -600,7 +600,7 @@ MonoBehaviour:
   inpNumClothes: {fileID: 1394856693}
   inpGenerate: {fileID: 291993198}
   inpSettingNumClothes: {fileID: 1699761827}
-  inpSettingColours: {fileID: 595152577}
+  inpSettingColourList: {fileID: 595152577}
   inpSettingSkipSpin: {fileID: 2062784597}
   txtColour: {fileID: 378761309}
   txtNumber: {fileID: 1051862637}
