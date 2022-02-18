@@ -96,9 +96,17 @@ public class Manager : MonoBehaviour
 	//Generator
 	Generator generator;
 
+	//Carbie
+	public ColourChangerSkinned mainCarbie;
+	public string animationType;
+
+	//Carbie Animation
+	public Animator animator;
+	[SerializeField]
+	float animationTime = 3f;
+
 	//Carbie Spinner
 	public GameObject wheel;
-	public ColourChanger mainCarbie;
 	[SerializeField]
 	float spinTime = 5f;
 
@@ -160,6 +168,22 @@ public class Manager : MonoBehaviour
 		}
 	}
 
+	public float GetAnimationLength(Animator anim, string clipName)
+	{
+		AnimationClip[] clips = anim.runtimeAnimatorController.animationClips;
+		foreach (AnimationClip clip in clips)
+		{
+			Debug.Log($"Found Clip ({clip.name})");
+			if(clip.name == clipName)
+			{
+				Debug.Log($"Clip \"{clipName}\" length: {clipName.Length}");
+				return clip.length;
+			}
+		}
+
+		return -1;
+	}
+
 	public void Generate()
 	{
 		activeNumberOfClothes = (uint)int.Parse(inpNumClothes.text);
@@ -167,42 +191,63 @@ public class Manager : MonoBehaviour
 		string colourName = generator.GetRandomColour(); //Get a random colour
 		System.Drawing.Color colour = System.Drawing.Color.FromName(colourName);
 
-		if (skipSpin) //Setting for skip
+		IEnumerator coroutine;
+		switch (animationType)
 		{
-			txtNumber.text = $"#{generator.GetRandomNumber()}";
-			txtColour.text = colourName;
-			txtColourBackground.color = new Color(colour.R / 255f, colour.G / 255f, colour.B / 255f);
-			txtColour.color = ContrastColor(colour);
-			mainCarbie.ChangeColor(colour);
-		}
-		else
-		{
-			IEnumerator coroutine;
+			case "None":
+				txtNumber.text = $"#{generator.GetRandomNumber()}";
+				txtColour.text = colourName;
+				txtColourBackground.color = new Color(colour.R / 255f, colour.G / 255f, colour.B / 255f);
+				txtColour.color = ContrastColor(colour);
+				mainCarbie.ChangeColor(colour);
+				break;
 
-			coroutine = Coroutine_Generate(colourName, colour);
-			StartCoroutine(coroutine);
+			case "Jump":
+				coroutine = Coroutine_Generate(colourName, colour, GetAnimationLength(animator, "n_root|n_rootAction"));
+				StartCoroutine(coroutine);
 
-			coroutine = Coroutine_SpinWheel(spinTime);
-			StartCoroutine(coroutine);
+				//coroutine = Coroutine_SpinWheel(spinTime);
+				//StartCoroutine(coroutine);
+				animator.Play("Jump");
 
-			coroutine = Coroutine_ColourCarbie(colour);
-			StartCoroutine(coroutine);
+				coroutine = Coroutine_ColourCarbie(colour, GetAnimationLength(animator, "n_root|n_rootAction") / 2f); //Change the colour of the carbie when it's halfway through the wheel spin
+				StartCoroutine(coroutine);
+				break;
+
+			case "Spin":
+				coroutine = Coroutine_Generate(colourName, colour, spinTime);
+				StartCoroutine(coroutine);
+
+				coroutine = Coroutine_SpinWheel(spinTime);
+				StartCoroutine(coroutine);
+
+				coroutine = Coroutine_ColourCarbie(colour, spinTime/2); //Change the colour of the carbie when it's halfway through the wheel spin
+				StartCoroutine(coroutine);
+				break;
+
+			default:
+				txtNumber.text = $"#{generator.GetRandomNumber()}";
+				txtColour.text = colourName;
+				txtColourBackground.color = new Color(colour.R / 255f, colour.G / 255f, colour.B / 255f);
+				txtColour.color = ContrastColor(colour);
+				mainCarbie.ChangeColor(colour);
+				break;
 		}
 	}
 
 	//Set the text/colours to a default, wait for spin time, and then generate a number and use the colour
-	IEnumerator Coroutine_Generate(string colourName, System.Drawing.Color colour)
+	IEnumerator Coroutine_Generate(string colourName, System.Drawing.Color colour, float duration)
 	{
 		//Set temporary text and colours while the wheel spins
 		txtNumber.text = "Generating...";
 		txtColour.text = "Generating...";
 		txtColourBackground.color = Color.white;
 		txtColour.color = new Color(0.1960784f, 0.1960784f, 0.1960784f); //Default colour used for text
-		inpGenerate.enabled = false; //Disable the generate button while the wheel spins
+		inpGenerate.enabled = false; //Disable the generate button for the duration
 
-		yield return new WaitForSeconds(spinTime);
+		yield return new WaitForSeconds(duration);
 
-		//Set new text and colours once the wheel stops
+		//Set new text and colours once the duration is over
 		txtNumber.text = $"#{generator.GetRandomNumber()}"; //Get a random number for the clothes #
 		txtColour.text = colourName;
 		txtColourBackground.color = new Color(colour.R / 255f, colour.G / 255f, colour.B / 255f);
@@ -226,7 +271,14 @@ public class Manager : MonoBehaviour
 	}
 
 	//Colour the main carbie halfway through the wheel spin
-	IEnumerator Coroutine_ColourCarbie(System.Drawing.Color colour)
+	IEnumerator Coroutine_ColourCarbie(System.Drawing.Color colour, float duration)
+	{
+		yield return new WaitForSeconds(duration); //Change the colour of the carbie after the duration
+		mainCarbie.ChangeColor(colour);
+	}
+
+	//Colour the main carbie halfway through the wheel spin
+	IEnumerator Coroutine_ColourCarbieSpin(System.Drawing.Color colour)
 	{
 		yield return new WaitForSeconds(spinTime / 2); //Change the colour of the carbie when it's halfway through the wheel spin
 		mainCarbie.ChangeColor(colour);

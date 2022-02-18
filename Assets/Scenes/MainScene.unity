@@ -608,8 +608,11 @@ MonoBehaviour:
   mainPanel: {fileID: 1868333068}
   settingsPanel: {fileID: 1735440233}
   dialogBox: {fileID: 2130226342}
+  mainCarbie: {fileID: 297675596}
+  animationType: Jump
+  animator: {fileID: 297675597}
+  animationTime: 3
   wheel: {fileID: 1642260525}
-  mainCarbie: {fileID: 2516728894768703530}
   spinTime: 5
 --- !u!4 &154784137
 Transform:
@@ -632,21 +635,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1642260526}
     m_Modifications:
-    - target: {fileID: 1990626933685662579, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 66db79092d0fd104387588e7130fac98, type: 2}
     - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
       propertyPath: m_RootOrder
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.50000006
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.50000006
       objectReference: {fileID: 0}
     - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -692,35 +683,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Carbie Statue 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8314387722625400763, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 66db79092d0fd104387588e7130fac98, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
---- !u!1 &190536762 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4408391287743788352, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-  m_PrefabInstance: {fileID: 190536761}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &190536763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 190536762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c43b3e364525b174ab403f721f3e520b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
 --- !u!4 &190536765 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
   m_PrefabInstance: {fileID: 190536761}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &234816747 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 1990626933685662579, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-  m_PrefabInstance: {fileID: 2516728894768703528}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &263305126
 GameObject:
@@ -894,21 +866,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1642260526}
     m_Modifications:
-    - target: {fileID: 1990626933685662579, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 7fc0521db43984c409370d1d15a661e6, type: 2}
     - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
       propertyPath: m_RootOrder
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.50000006
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.50000006
       objectReference: {fileID: 0}
     - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -954,31 +914,134 @@ PrefabInstance:
       propertyPath: m_Name
       value: Carbie Statue 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8314387722625400763, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7fc0521db43984c409370d1d15a661e6, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
---- !u!1 &292846564 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4408391287743788352, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-  m_PrefabInstance: {fileID: 292846563}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &292846565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 292846564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c43b3e364525b174ab403f721f3e520b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
 --- !u!4 &292846567 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
   m_PrefabInstance: {fileID: 292846563}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &297675591
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 242320765444082797}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 853061382b71bd54dbec735de0355a0e, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 853061382b71bd54dbec735de0355a0e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 853061382b71bd54dbec735de0355a0e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 853061382b71bd54dbec735de0355a0e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 853061382b71bd54dbec735de0355a0e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 853061382b71bd54dbec735de0355a0e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 853061382b71bd54dbec735de0355a0e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 853061382b71bd54dbec735de0355a0e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 853061382b71bd54dbec735de0355a0e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 853061382b71bd54dbec735de0355a0e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 853061382b71bd54dbec735de0355a0e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 853061382b71bd54dbec735de0355a0e, type: 3}
+      propertyPath: m_Name
+      value: Main Animated Carbie
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625635882673361738, guid: 853061382b71bd54dbec735de0355a0e, type: 3}
+      propertyPath: m_Name
+      value: m7002b0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5246584900316424844, guid: 853061382b71bd54dbec735de0355a0e, type: 3}
+      propertyPath: m_Name
+      value: m7002b0001 Part 0.0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 853061382b71bd54dbec735de0355a0e, type: 3}
+--- !u!4 &297675592 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 853061382b71bd54dbec735de0355a0e, type: 3}
+  m_PrefabInstance: {fileID: 297675591}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &297675593 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5246584900316424844, guid: 853061382b71bd54dbec735de0355a0e, type: 3}
+  m_PrefabInstance: {fileID: 297675591}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &297675594 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7073537833548884323, guid: 853061382b71bd54dbec735de0355a0e, type: 3}
+  m_PrefabInstance: {fileID: 297675591}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &297675595 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 853061382b71bd54dbec735de0355a0e, type: 3}
+  m_PrefabInstance: {fileID: 297675591}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &297675596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297675593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dfca70a66bd3b848ad19e42b2c07c73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 297675594}
+--- !u!95 &297675597
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297675595}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3b02c513135c32446adaa1b11f081306, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &314996496
 GameObject:
   m_ObjectHideFlags: 0
@@ -3752,6 +3815,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1433974752}
   m_CullTransparentMesh: 1
+--- !u!4 &1568949545 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b14f17d8faa1a8f4dade28364111ae9e, type: 3}
+  m_PrefabInstance: {fileID: 2758892092922264507}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1642260525
 GameObject:
   m_ObjectHideFlags: 0
@@ -3779,7 +3847,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -1.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2516728894768703532}
+  - {fileID: 242320765444082797}
   - {fileID: 190536765}
   - {fileID: 1647090381}
   - {fileID: 1813481351}
@@ -3795,21 +3863,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1642260526}
     m_Modifications:
-    - target: {fileID: 1990626933685662579, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 74ad41bd2153f644298f2d5f64b0785f, type: 2}
     - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.50000006
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.50000006
       objectReference: {fileID: 0}
     - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3855,26 +3911,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Carbie Statue 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8314387722625400763, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 74ad41bd2153f644298f2d5f64b0785f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
---- !u!1 &1647090378 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4408391287743788352, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-  m_PrefabInstance: {fileID: 1647090377}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1647090379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647090378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c43b3e364525b174ab403f721f3e520b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
 --- !u!4 &1647090381 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
@@ -4630,21 +4672,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1642260526}
     m_Modifications:
-    - target: {fileID: 1990626933685662579, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 709c66a940ed98a40b6315b4da11e69c, type: 2}
     - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
       propertyPath: m_RootOrder
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.50000006
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.50000006
       objectReference: {fileID: 0}
     - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4690,26 +4720,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Carbie Statue 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8314387722625400763, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 709c66a940ed98a40b6315b4da11e69c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
---- !u!1 &1813481348 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4408391287743788352, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-  m_PrefabInstance: {fileID: 1813481347}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1813481349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1813481348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c43b3e364525b174ab403f721f3e520b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
 --- !u!4 &1813481351 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
@@ -4934,21 +4950,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1642260526}
     m_Modifications:
-    - target: {fileID: 1990626933685662579, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: c55048469ba4a08438ffbbe4ce7a7974, type: 2}
     - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
       propertyPath: m_RootOrder
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.50000006
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.50000006
       objectReference: {fileID: 0}
     - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4994,26 +4998,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Carbie Statue 6
       objectReference: {fileID: 0}
+    - target: {fileID: 8314387722625400763, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c55048469ba4a08438ffbbe4ce7a7974, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
---- !u!1 &1949442369 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4408391287743788352, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-  m_PrefabInstance: {fileID: 1949442368}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1949442370
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1949442369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c43b3e364525b174ab403f721f3e520b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
 --- !u!4 &1949442372 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
@@ -5632,95 +5622,96 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138001811}
   m_CullTransparentMesh: 1
---- !u!1001 &2516728894768703528
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1642260526}
-    m_Modifications:
-    - target: {fileID: 1990626933685662579, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f737bac930f6f824b8a5f83ce041a059, type: 2}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.50000006
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.50000006
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.225
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.17364809
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.9848078
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4408391287743788352, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-      propertyPath: m_Name
-      value: Carbie Statue 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
---- !u!1 &2516728894768703529 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4408391287743788352, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-  m_PrefabInstance: {fileID: 2516728894768703528}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2516728894768703530
-MonoBehaviour:
+--- !u!4 &242320765444082797
+Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2516728894768703529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c43b3e364525b174ab403f721f3e520b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 234816747}
---- !u!4 &2516728894768703532 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2427953583863931973, guid: 5a95dee12ebef8c4dad131215d4112e2, type: 3}
-  m_PrefabInstance: {fileID: 2516728894768703528}
+  m_GameObject: {fileID: 2288100316648004968}
+  m_LocalRotation: {x: -0, y: 0.9848078, z: -0, w: -0.17364809}
+  m_LocalPosition: {x: 0, y: 0.225, z: 1.3}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_Children:
+  - {fileID: 297675592}
+  - {fileID: 1568949545}
+  m_Father: {fileID: 1642260526}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 200, z: 0}
+--- !u!1 &2288100316648004968
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 242320765444082797}
+  m_Layer: 0
+  m_Name: Carbie Statue 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1001 &2758892092922264507
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 242320765444082797}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: b14f17d8faa1a8f4dade28364111ae9e, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b14f17d8faa1a8f4dade28364111ae9e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b14f17d8faa1a8f4dade28364111ae9e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b14f17d8faa1a8f4dade28364111ae9e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b14f17d8faa1a8f4dade28364111ae9e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b14f17d8faa1a8f4dade28364111ae9e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b14f17d8faa1a8f4dade28364111ae9e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b14f17d8faa1a8f4dade28364111ae9e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b14f17d8faa1a8f4dade28364111ae9e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b14f17d8faa1a8f4dade28364111ae9e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b14f17d8faa1a8f4dade28364111ae9e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: b14f17d8faa1a8f4dade28364111ae9e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4ad54fee4fedadc48a9985310d178cee, type: 2}
+    - target: {fileID: 919132149155446097, guid: b14f17d8faa1a8f4dade28364111ae9e, type: 3}
+      propertyPath: m_Name
+      value: Statue
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b14f17d8faa1a8f4dade28364111ae9e, type: 3}
